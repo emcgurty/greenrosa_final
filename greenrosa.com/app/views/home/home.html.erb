@@ -1,0 +1,118 @@
+
+<%= form_for(:home, :url => {:action => 'home'}) do |form| %>
+  <div style="text-align:center;width:960px; ">
+    <table style="text-align:center;width:960px;padding:0;border-spacing: 0;">
+
+
+      <tr>
+        <td style="width:3%">&nbsp;</td>
+        <td style="width:80%" class='RosaTitle'>
+          <ul class="one_listing" >
+            <li class="tier1" >Welcome to Green Rosa</li>
+            <ul><li class='tier2'>
+               
+                <p> So many web sites are lacking in important elements due to time, monetary or skill constraints. Yet we at Green Rosa believe that common web-site types
+                  should be readily available, despite those constraints.</p>
+               
+                <p>Green Rosa is taking that point a step further.  We've focused on the open-source tools of Ruby and Ruby on Rails as they are particularly unusual and suitable toward our goal.
+                  Not just open source, Green Rosa has found the programmers and developers utilizing those technologies are not only among the best, but are also the most likely to be
+                  collaborative.  Thus, Green Rosa is offered as a collaborative platform with the goal of edification and uniformity of excellence in web-site design, development and deployment.</p>
+               
+              </li>
+            </ul>
+          </ul>
+
+
+          <ul class="one_listing" >
+            <li class="tier1" >Green Rosa Concepts</li>
+            <ul>
+              <li class=tier2>Through an open-source, iterative and collaborative process, provide perfected generic applications freely and easily available to the general public</li>
+              <li class=tier2>Demonstrate repeatable-process in web site development</li>
+              <li class=tier2>Provide a 'shell' for other application development</li>
+              <li class=tier2>Build a 'library' of reusable methods and functions</li>
+            </ul>
+          </ul>
+
+
+
+          <ul class="one_listing" >
+            <li class="tier1" >Green Rosa Requirements.</li>
+            <ul>
+              <li class=tier2>Submitted content is subject to approval.</li>
+              <li class=tier2>While the possibilities are not complete here, a Collaborative Registered User may provide code via the following options:
+                <ul>
+                  <li class=tier3>A publicly accessible repository like <%= link_to 'GitHub', "http://www.github.com" %></li>
+                  <li class=tier3>One source, file size limited to 500 KB. To keep source file size small, check to remove log or temporary files, and remove images file -- references to them should be sufficient</li>
+                  <li class=tier3>Notice: At this deployment, Firefox does not handle download of source files well, Internet Explorer seems to work much better.</li>
+                </ul>
+              </li>
+              <li class=tier2>User registration and Login</li>
+              <ul>
+                <li class="tier3">If you want to make a Collaborative Contribution, some level of your identity for response, expression of gratitude
+                  or otherwise follow-up needs to be provided. </li>
+                <li class=tier3>You don't need to be Registered Collaborative User to download a Collaborator contribution</li>
+                <li class=tier3>A Team of Collaborators will eventually be assembled to review and approve Collaborator Contributed</li>
+                <li class=tier3>In registration, anonymity will be allowed via an 'Alias'.</li>
+              </ul>
+
+              <li class=tier2>Email</li>
+              <ul>
+                <li class="tier3">Email is used for Green Rosa application-level notification purposes only</li>
+                <li class=tier3>Each Green Rosa application will display Collaborator permitted identity followed by his/her provided email address</li>
+              </ul>
+
+              <li class=tier2>Collaborative Contribution Status:
+                <ul>
+                  <li class=tier3>Proposed: A web-site concept not currently listed among the existing collaborative sites</li>
+                  <li class=tier3>Deployed: Thoroughly tested and fully-functional</li>
+                  <li class=tier3>Available for Review: An application or aspect of an application distinct or complimentary of an existing collaborative sites</li>
+                  <li class=tier3>Under construction: Has merit in itself or as contribution to an existing or proposed shared site</li>
+                  <li class=tier3>Bits and Pieces: Partial functionality that can be readily incorporated into another or all sites</li>
+                </ul>
+              </li>
+
+              <li class=tier2><b>Patience</b>...Green Rosa believes that there are folks out there seeking collaboratively built web-sites of many types.</li>
+            </ul>
+
+          </ul>
+
+          <ul class="one_listing" >
+            <li class="tier1" >Green Rosa Data Validation</li>
+            <ul>
+              <li class=tier2>Tested somewhat thoroughly in FireFox.  Looked at Chrome and Internet Explorer, only so many hours in a day...</li>
+              <li class=tier2>Collaborator Application Name is required and must be unique</li>
+              <li class=tier2>At least one Application Feature, some distinctive attribute, is required.  Green Rosa allows for 12 Application Features</li>
+              <li class=tier2>Otherwise, Green Rosa Application fields are required</li>
+              <li class=tier2>Collaborator code source may be provided as direction to a repository url or a source code file upload, but not both</li>
+              <li class=tier2>In providing a source code file, please be sure to exclude private/personal information, that is, passwords</li>
+              <li class=tier2>Executable collaborator code will not be accepted, that is, extensions like 'exe', 'bat', or 'out' </li>
+              <li class=tier2>Collaborator identity as either a full name or alias with email, all of which must be unique</li>
+              <li class=tier2>Malicious or destructive data entries will not be tolerated</li>
+            </ul>
+          </ul>
+
+          <% unless session[:i_agree]  %>
+            <ul class="one_listing" >
+              <li class="tier1" >I HAVE READ</li>
+              <ul>
+                <li class=tier2 id="i_have_read" ><%= form.submit "I have read and understand the above", {:class => 'button_style_safe'} %></li>
+              </ul>
+            </ul>
+          <% end %>
+        </td>
+        <td style="width:17%">&nbsp;</td>
+      </tr>
+
+
+      <tr>
+        <td style="width:3%">&nbsp;</td>
+        <td style="width:80%" ></td>
+        <td style="width:17%">&nbsp;</td>
+      </tr>
+
+    </table>
+  </div>
+<% end %>
+
+
+

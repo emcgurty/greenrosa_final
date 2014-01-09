@@ -1,0 +1,103 @@
+<%= form_for(:contact_us, :url => {:action => 'contact_us'}) do |form|%>
+  <% @contact_us.each do |val| %>
+    <table width="100%" class=ListComments>
+      <tr   >
+        <td style="width:5%"   >&nbsp; </td>
+        <td style="width:25%"   > </td>
+        <td style="width:5%"   ></td>
+        <td style="width:25%"   > </td>
+        <td style="width:40%"   > </td>
+      </tr>
+
+      <tr   >
+        <td style="width:5%"   >&nbsp;</td>
+        <td colspan="3" class="RosaTitle">Green Rosa Contact </td>
+        <td style="width:40%"   >&nbsp; </td>
+      </tr>
+
+      <tr   >
+        <td style="width:5%"   >&nbsp; </td>
+        <td colspan="4"  > </td>
+
+      </tr>
+
+      <tr   >
+        <td style="width:5%"   >&nbsp; </td>
+        <td colspan="3"  class='subtitle' >All fields are required</td>
+        <td style="width:40%"   >&nbsp; </td>
+      </tr>
+
+      <tr   >
+        <td style="width:5%"   >&nbsp; </td>
+        <td colspan="4"  > </td>
+      </tr>
+
+      <tr   >
+        <td style="width:5%"   >&nbsp; </td>
+        <td colspan="3" class=labelred >(x) indicates minimum...maximum characters.</td>
+        <td style="width:40%"   >&nbsp; </td>
+
+      </tr>
+
+      <tr   >
+        <td style="width:5%"   >&nbsp; </td>
+        <td colspan="4"  > </td>
+      </tr>
+
+      <tr   >
+        <td style="width:5%"   >&nbsp;</td>
+        <td style="width:25%" class=labelgreen  >Subject (6...24):</td>
+        <td style="width:5%"   ></td>
+        <td style="width:25%" align="left"  ><%= form.text_field('user_alias', {:value => (val['user_alias'] ? val['user_alias']: ''), :maxlength => '24'}) %></td>
+        <td style="width:40%"   >&nbsp; </td>
+      </tr>
+
+      <tr   >
+        <td style="width:5%"   >&nbsp; </td>
+        <td colspan="4"   > </td>
+      </tr>
+      <tr   >
+        <td style="width:5%"   > </td>
+        <td style="width:25%"  class=labelgreen >Your email address (50):</td>
+        <td style="width:5%"   ></td>
+        <td style="width:25%"   ><%=  form.text_field('email', {:value => (val['email'] ? val['email']: ''), :maxlength => '50'}) %></td>
+        <td style="width:40%"   > </td>
+
+      </tr>
+      <tr   >
+        <td style="width:5%"   >&nbsp; </td>
+        <td colspan="4"   > </td>
+      </tr>
+
+      <tr   >
+        <td style="width:5%"   >&nbsp; </td>
+        <td style="width:25%"  class='labelgreen' valign="top" >Your Comments <br/>(255, includes spaces):</td>
+        <td style="width:5%"   ></td>
+        <td style="width:25%" ><%=  form.text_area('comments', {:rows=> '6', :cols=> '30', :value => (val['comments'] ? val['comments']: ''), :maxlength=>'255'}) %></td>
+        <td style="width:40%"   > </td>
+
+      </tr>
+
+
+      <tr   >
+        <td style="width:5%"   >&nbsp; </td>
+        <td colspan="4"   > </td>
+      </tr>
+
+      <tr   >
+        <td style="width:5%">&nbsp; </td>
+        <td style="width:25%;align:right;" ><%= form.submit "Contact Green Rosa",{:class=>"button_style"} %></td>
+        <td style="width:5%"   ></td>
+        <td style="width:25%;align:right;"   ><%= link_to "Changed My Mind", root_url, {:class=>"button_style"} %></td>
+        <td style="width:40%"></td>
+      </tr>
+
+      <tr   >
+        <td style="width:5%" >&nbsp; </td>
+        <td colspan="4"></td>
+
+      </tr>
+
+    </table>
+  <% end %>
+<% end %>

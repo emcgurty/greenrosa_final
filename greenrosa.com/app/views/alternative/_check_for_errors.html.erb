@@ -1,0 +1,22 @@
+<% if data_source.errors.any?  %>
+
+  <div id="errorExplanation" style="margin-left:15px;margin-top:10px;"><h2>
+      <%= pluralize(data_source.errors.count, "error")  %>
+      prohibited this new record from being saved:</h2><p>There were problems with the following fields: </p>
+    <ul>
+      <% data_source.errors.full_messages.each do |msg|  %>
+        <li>
+          <%= msg  %>
+          <%  if msg.to(3) == "File" %>
+            <% @file_size = ((session[:file_size].to_i))  %>
+            <%  if @file_size > 0 %>
+              <%=  "The file you selected has size: ~#{@file_size} KB."  %>
+            <% end  %>
+          <% end  %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<%  end  %>
+
+

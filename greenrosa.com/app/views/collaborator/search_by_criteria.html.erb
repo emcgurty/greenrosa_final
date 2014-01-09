@@ -1,0 +1,95 @@
+<h2 class="RosaTitle">Search by Data Points</h2>
+<p class="subtitle">Criteria offered by Green Rosa Application Name, Collaborator Alias, or Application Status</p>
+<%= form_tag('create') %>
+
+<table style="width:90%">
+  <tr>
+    <td style="width:30%" class="searchtitle" ><%=  'Application Name' %>:</td>
+    <td style="width:30%">&nbsp;</td>
+    <td style="width:30%">&nbsp;</td>
+  </tr>
+
+  <% @all_applications = Alternative.find(:all, :order => "application_name ASC", :readonly => true) %>
+  <% @all_records  = @all_applications.count %>
+  <% ct = 4 %>
+
+  <% @all_applications.each do |trow| %>
+    <% if ct % 4  == 0 %>
+      <tr>
+      <% end %>
+      <% @build_url = "name_#{trow.application_name.to_s}" %>
+      <td style="width:30%"><%= link_to trow.application_name.to_s, alternative_list_url(@build_url) %></td>
+      <% if ct % 4 == 3%>
+      </tr>
+    <% end %>
+    <% ct = ct + 1 %>
+  <% end %>
+</table>
+
+<br />
+
+<table style="width:90%">
+  <tr>
+    <td style="width:30%" class="searchtitle" ><%=  'Collaborator Alias' %>:</td>
+    <td style="width:30%">&nbsp;</td>
+    <td style="width:30%">&nbsp;</td>
+  </tr>
+  <%  @sql_code = "SELECT DISTINCT a.user_alias as alias, b.id as id
+          FROM users AS a
+          INNER JOIN alternatives AS b
+          ON a.user_id  = b.user_id
+          GROUP BY a.user_alias, b.id
+          ORDER BY a.user_alias, b.id "
+%>
+
+  <% #TODO: Convert sql_code to view for read only  %>
+  <% @all_applications = User.find_by_sql(@sql_code) %>
+  <% @all_records  = @all_applications.count %>
+  <% ct = 6 %>
+  <% @hold_alias = '' %>
+
+  <% @all_applications.each do |trow| %>
+    <% if ct % 6  == 0 %>
+      <tr>
+      <% end %>
+      <% unless @hold_alias == trow.alias.to_s %>
+        <% @build_url = "alias_#{trow.alias.to_s}" %>
+        <td style="width:30%"><%= link_to trow.alias.to_s, alternative_list_url(@build_url) %></td>
+      <% end %>
+      <% @hold_alias = trow.alias.to_s %>
+      <% if ct % 6 == 5 %>
+      </tr>
+    <% end %>
+    <% ct = ct + 1 %>
+  <% end %>
+</table>
+
+
+<br />
+
+<table style="width:90%">
+  <tr>
+    <td style="width:30%" class="searchtitle"><%=  'Collaborator Application Status' %>:</td>
+    <td style="width:30%">&nbsp;</td>
+    <td style="width:30%">&nbsp;</td>
+  </tr>
+
+  <% CollaboratorMethods.collaborator_value[:application_status].each do |val| %>
+
+    <% @all_applications = Alternative.find(:all, :readonly => true, :conditions => ['application_status =?', val[0].to_i]) %>
+    <% @verbage = '' %>
+    <% if @all_applications.count > 0 %>
+      <tr>
+        <% unless @verbage == val[1].to_s %>
+        <% @build_url = "status_#{val[0]}" %>
+          <td colspan="2"> &nbsp;
+          <%= link_to val[1].to_s, alternative_list_url(@build_url) %></td>
+          <td style="width:30%">&nbsp;</td>
+        <% end %>
+      </tr>
+      <% @verbage = val[1].to_s %>
+    <% end %>
+  <% end %>
+</table>
+
+

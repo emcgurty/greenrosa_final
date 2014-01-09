@@ -1,0 +1,51 @@
+<% unless @passed_object.blank? %>
+
+  <% @title = "#{whichTitle} Offered" %>
+
+  <h2 class="approvetitle"><%= @title %> </h2>
+  <% @ct = 1 %>
+
+  <% @passed_object.each do |s| %>
+    <table class="ListCommemts">
+      <tr>
+        <td><%=  'Comment' %>:</td>
+        <td><%= text_area_tag "text_#{@ct}", s.record_text %></td>
+      </tr>
+      <tr>
+        <td><%=  'email' %>:</td>
+        <td><%= mail_to(s.email) %></td>
+      </tr>
+      <tr>
+        <td><%=  'Approved it?' %>:</td>
+        <td><%= check_box_tag("approved_#{@ct}", s.approved, s.approved) %></td>
+      </tr>
+
+    </table>
+
+    <br />
+
+    <% if params[:p] %>
+      <% @local_id = s.p_uuid %>
+    <% elsif params[:c] %>
+      <% @local_id = s.c_uuid %>
+    <% elsif params[:l] %>
+      <% @local_id = s.id %>
+    <% end %>
+
+    <%= hidden_field_tag("count", @ct) %>
+    <%= hidden_field_tag("id_#{@ct}", @local_id) %>
+    
+    <% @ct = @ct + 1 %>
+  <% end %>
+
+  <% @submit_title = "Submit #{whichTitle} Approvals" %>
+  <%= submit_tag @submit_title, {:class => 'button_style'} %>
+    <br /><br />
+<% else %>
+  <br />
+
+  <% @title = "No #{whichTitle} Records Found" %>
+  <h2 class="approvetitle"><%= @title %> </h2>
+ 
+<% end %>
+

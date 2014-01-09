@@ -1,0 +1,72 @@
+<%= form_for(:search, :url => {:action => 'feature_search'}) do |form|%>
+
+  <p align="center" vertical-align="middle"><font class="RosaTitle">Application Name and Feature Search</font></p>
+  <p align="center" vertical-align="middle"><font class="infotitle">Partial Words are Fine, Character limit is 100, One Search Criteria Per Cell</font></p>
+  <div style="text-align:center;width:940px; ">
+
+    <table align=center width="100%" cellpadding="0" cellspacing="0" >
+      <tr bgcolor="#B1E1DA" align="center">
+        <th style="width:40%" align="left"  >Application Name Contains</th>
+        <th style="width:40%" align="left"  >Feature List Contains</th>
+        <th style="width:20%" align="left"  >AND or OR</th>
+      </tr>
+      <%  ct = 1 %>
+
+      <%  @search.each do |item| %>
+        <tr bgcolor="#BCD5B4" align="center">
+          <%  @name_value = item["name_#{ct}"].blank? ? "" : item["name_#{ct}"]  %>
+          <%  @list_value = item["list_#{ct}"].blank? ? "" : item["list_#{ct}"]  %>
+          <td style="width:40%"   ><%= form.text_field "name_#{ct}", { :value => @name_value, :size=> "50",:maxlength=> "100" } %></td>
+          <td style="width:40%"   ><%= form.text_field "list_#{ct}", { :value => @list_value, :size=> "50",:maxlength=> "100" } %></td>
+          <td style="width:20%"    ><%= render :partial => 'generate_combo_with_name', :locals => {:yml_name => :and_or, :name => "and_or_#{ct}", :selected => item["and_or_#{ct}"].to_s} %></td>
+        </tr>
+        <%  ct = ct + 1 %>
+      <% end %>
+      <tr bgcolor="#BCD5B4" align="left">
+        <td colspan="3"   >&nbsp;</td>
+      </tr>
+
+      <tr bgcolor="#BCD5B4" align="left">
+        <% if session[:search_rows].to_i == CollaboratorMethods.collaborator_value[:display_search_rows][:max].to_i  %>
+
+          <td colspan="3"   >
+            <%= 'Search Row Limit Met' %>
+          </td>
+
+        <% else %>
+          <td colspan="3"   >
+            <%= submit_tag "Add Another Search Row", {:class => 'button_style'} %>&nbsp; Adding rows will generate an 'OR' statement between rows.&nbsp;
+          </td>
+        <% end %>
+      </tr>
+
+      <tr bgcolor="#BCD5B4" align="left">
+        <td colspan="3"   >
+        </td>
+      </tr>
+
+
+      <tr bgcolor="#BCD5B4" align="left">
+        <td colspan="3"   ><%= submit_tag "Search",{:class => 'button_style'} %>&nbsp; Blank input cells will not be evaluated&nbsp;</td>
+      </tr>
+
+      <tr bgcolor="#BCD5B4" align="left">
+        <td colspan="3"   >
+        </td>
+      </tr>
+
+      <tr bgcolor="#BCD5B4" align="left">
+        <td colspan="3"   ><%= submit_tag "Changed My Mind", {:class => 'button_style'} %>&nbsp; &nbsp;</td>
+      </tr>
+
+      <tr bgcolor="#BCD5B4" align="left">
+        <td colspan="3"   ></td>
+      </tr>
+
+
+
+    </table>
+
+  </div>
+
+<% end %>

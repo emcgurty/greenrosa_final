@@ -1,0 +1,12 @@
+<select name=<%= name.to_s %>>
+  <option value="">
+    Please select
+  </option>
+  <% CollaboratorMethods.collaborator_value[name].each do |val|  %>
+    <%   if val[0] == selected  %>
+      <option value='<%= val[0] %>' selected='selected'><%= val[1] %></option>
+    <%  else %>
+      <option value='<%= val[0] %>'><%= val[1] %></option>
+    <%      end  %>
+  <%   end  %>
+</select>

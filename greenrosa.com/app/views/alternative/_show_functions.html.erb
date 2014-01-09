@@ -1,0 +1,15 @@
+<% @logged_in =  session[:user_id] ? true : false  %>
+
+<% if @logged_in  %>
+  <% if session[:user_id] == uid %>
+    <%=  link_to("Edit", alternative_edit_url(rid)) %>
+    &nbsp;/&nbsp;
+    <%= link_to("Delete", alternative_delete_url(rid)) %>
+  <% else %>
+    <%= link_to("Collaborate", :controller => 'alternative', :action => 'collaborate', :id => rid) %>
+  <% end %>
+<% else %>
+  <%= link_to("Collaborate", :controller => 'alternative', :action => 'collaborate', :id => rid) %>
+<% end %>
+
+

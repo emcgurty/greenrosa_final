@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+   
+<title>Green Rosa</title>
+    <meta name="description" content="open source open-source ruby on rails ror ROR collaborate collaborator free  Green Rosa provided in its entirety by Elizabeth M. McGurty" />
+    <meta name="keywords" content="open source ruby on rails ror ROR collaborate collaborator free  Green Rosa provided in its entirety by Elizabeth M. McGurty"  />
+    <%= javascript_include_tag :defaults %>
+    <%= stylesheet_link_tag :all, :cache => false %>
+  
+  </head>
+  <body >
+
+    
+    <% content_for :header do %>
+      <%= render :partial => 'menus/header'  %>
+    <% end %>
+
+    <% content_for :footer do %>
+      <%= render :partial => 'menus/footer'  %>
+    <% end %>
+
+    <% content_for :center do %>
+      <%= yield %>
+    <% end %>
+
+    <div class=outer>
+      <div class=middle>
+        <div class=inner>
+          <%= yield :header %>
+        </div>
+      </div>
+    </div>
+
+   
+
+    <div class='surround_center_body' >
+      <div id='center_body' align="center">
+        <%= render :partial => 'home/flash_helper' %>
+        <%= yield  :center %>
+      </div>
+    </div>
+
+
+    <%= yield :footer %>
+
+  </body>
+</html>

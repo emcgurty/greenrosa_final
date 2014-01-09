@@ -1,0 +1,40 @@
+<ul class="menu">
+  <% if session[:i_agree] %>
+    <li>
+      <%=  link_to( 'Home', root_url) %>
+    </li>&nbsp;-&nbsp;
+
+    <%  @user_session = false %>
+    <%  @user_session = session[:user_id].nil? %>
+    <%  @any_user = User.find(:all, :readonly => true, :conditions => ['activation_code IS NULL']).count %>
+    <%  if (@any_user == 0) %>
+      <li>
+        <%=  link_to('Register', user_user_record_url) %>
+        &nbsp;-&nbsp;</li>
+    <%  elsif (@any_user >= 1) && (@user_session) %>
+      <li>
+        <%= link_to('Login', user_show_url) %>
+        &nbsp;-&nbsp;</li>
+      <li>
+        <%= link_to('Register', user_user_record_url) %>
+        &nbsp;&nbsp;</li>
+
+    <% elsif (@any_user >= 1)   && !(@user_session) %>
+      <li>
+        <%=  link_to('Logout', user_logout_url ) %>
+        &nbsp;-&nbsp;</li>
+      <li>
+        <%=  link_to(
+          "Update #{get_full_name(User.find(:first, :readonly => true, :conditions => ['user_id = ?',session[:user_id] ]))} Detail",
+          user_user_record_url(session[:user_id]) ) %>
+        &nbsp;&nbsp;</li>
+
+    <%  end %>
+  <%  else %>
+    <%  unless @contact_us %>
+      <li>
+        <a href='#i_have_read'>Awaiting Green Rosa Agreement</a>
+      </li>
+    <%  end %>
+  <% end %>
+</ul>

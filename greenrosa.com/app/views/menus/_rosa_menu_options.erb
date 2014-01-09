@@ -1,0 +1,44 @@
+<% @tmp = Alternative.find(:all, :readonly => true) %>
+<% if session[:i_agree] %>
+
+
+  <% @user_session = false %>
+  <% @user_session = session[:user_id].nil? %>
+  <% @any_user = User.find(:all, :readonly => true, :conditions => ['activation_code IS NULL']).count %>
+
+  <% if !((@any_user >= 1)) && !(@user_session) && @tmp %>
+    <ul class="menu" >Functions: No Contributions have been approved yet
+    <% else %>
+      <ul class="menu" >Functions:
+      <% end %>
+      <% if (@any_user >= 1)   && !(@user_session) %>
+      <% #TODO Do not display contribute if editting %>
+          <li>
+            <%= link_to( "Contribute", alternative_edit_url('')) %>
+            <% unless @tmp.empty? %>
+              &nbsp;-&nbsp;</li>
+          <% else %>
+            &nbsp;&nbsp;</li>
+          <% end %>
+        <% end %>
+      
+
+
+      <% unless @tmp.empty? %>
+
+        <li>
+          <%= link_to( "Word Search", alternative_feature_search_url) %>
+          &nbsp;-&nbsp;</li>
+        <li>
+          <%=  link_to( "Data Point Search", collaborator_search_by_criteria_url) %>
+          &nbsp;-&nbsp;</li>
+        <li>
+          <%= link_to("View Exisiting #{pluralize(@tmp.count.to_i, 'Application')}", alternative_list_url(nil))  %>
+          &nbsp;&nbsp;</li>
+      <% end %>
+
+    </ul>
+
+
+  <% end %>
+  <% @tmp = nil %>

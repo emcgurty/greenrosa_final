@@ -1,0 +1,10 @@
+Source File(500 kb Max): <%= form.file_field(:uploaded_zip_file)  %>
+<% unless session[:upload_file].blank? %>
+  <div class="fieldWithErrors_Rosa">Previously selected: <%= session[:upload_file] %></div>
+<% end %>
+<br />
+OR: <br />
+<%= link_to "GitHub", "http://www.github.com" %> repository or comparable: <%= form.text_field(:repository, :value => val_source_url)  %>
+<% unless session[:source_url].blank? %>
+  <div class="fieldWithErrors_Rosa">Previously selected: <%= session[:source_url] %></div>
+<% end %>

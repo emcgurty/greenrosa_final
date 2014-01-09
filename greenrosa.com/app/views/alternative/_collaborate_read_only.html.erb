@@ -1,0 +1,103 @@
+<% @collaborate_object = Alternative.find(:first, :readonly => true, :conditions => ['id = ?', session[:collaborate] ]) %>
+
+<div style="text-align:center;border:0.05em;border-color:lightgray;border-style:solid;width:940px;"  >
+  <%= render :partial => 'get_collaborator_identity_and_email', :locals => {:user_id => @collaborate_object[:user_id]} %>
+
+  <h3 class="RosaTitle">Collaborate on the following Application Detail</h3>
+
+
+  <table align=center width="940px" cellpadding="0" cellspacing="0" >
+    <tr  align="center">
+      <th style="width:20%" align="left"  >Application Name</th>
+      <th style="width:30%" align="left"  >Description</th>
+      <th style="width:15%" align="left"  >Status</th>
+      <th style="width:15%" align="left"  >Details</th>
+      <th style="width:20%" align="left"  >Collaborator</th>
+     
+    </tr>
+  </table>
+  <% rct = 1 %>
+
+  <div style="text-align:center;border-style:solid;border-color: lightgray;width:940px;">
+    <% @div_name = @collaborate_object[:application_name] + "_div"  %>
+    <% rct = rct + 1 %>
+    <table  align="center" width="940px" cellpadding="0" cellspacing="0">
+
+      <% if rct % 2 == 0 %>
+        <% @bg = "#BCD5B4" %>
+      <% elsif rct % 2 != 0 %>
+        <% @bg = "#F3E8D3" %>
+      <% end %>
+      <tr bgcolor='<%= @bg %>' align="center">
+        <td style="width:20%;word-wrap:break-word;"   ><%= @collaborate_object[:application_name] %>&nbsp;</td>
+        <td style="width:30%;word-wrap:break-word;" ><%= @collaborate_object[:application_description] %>&nbsp;</td>
+        <td style="width:15%;word-wrap:break-word;"   ><%= get_application_status(@collaborate_object[:application_status].to_s) %>&nbsp;</td>
+        <td style="width:15%;word-wrap:break-word;"    ><%= link_to_function "Details", "displayComments('#{@div_name}')" %>&nbsp; </td>
+        <td style="width:20%;word-wrap:break-word;"    ><%= render :partial => 'get_collaborator_email', :locals => {:user_id => @collaborate_object[:user_id]} %>&nbsp; </td>
+        
+      </tr>
+    </table>
+
+    <div id='<%= @div_name %>' style="display:none;" >
+      <table align=center width="940px" cellpadding="0" cellspacing="0" >
+        <tr bgcolor="#B1E1DA" align="center">
+          <th style="width:15%" align="left"  >Ruby Version</th>
+          <th style="width:15%" align="left"  >Rails Version</th>
+          <th style="width:15%" align="left"  >Development IDE</th>
+          <th style="width:20%" align="left"  >Code Source</th>
+          <th style="width:30%" align="left"  >Features</th>
+        </tr>
+
+        <tr>
+          <td style="width:15%"    ><%= @collaborate_object[:ruby_version] %></td>
+          <td style="width:15%"    ><%= @collaborate_object[:rails_version] %></td>
+          <td style="width:15%"   ><%= @collaborate_object[:application_ide] %></td>
+
+          <% if @collaborate_object[:file_name] == 'NA' %>
+            <td style="width:20%"    ><%= link_to(@collaborate_object[:source_url], @collaborate_object[:source_url]) %> </td>
+          <% else %>
+            <% @link_to_msg = "#{@collaborate_object[:source_url]}, size #{@collaborate_object[:file_size]} KB" %>
+            <% session[:id] = @collaborate_object[:id]%>
+            <td style="width:20%"    ><%= link_to(@link_to_msg, :controller => "alternative", :action => "download",  :target => "_blank", :name => @collaborate_object[:file_name] ) %> </td>
+          <% end %>
+
+          <td style="width:30%" >
+            <table align="center" width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+
+                <th style="width:15%" align="left" >No.</th>
+                <th style="width:80%" align="left">Features</th>
+              </tr>
+              <% ct = 1 %>
+              <% @features_hash = @collaborate_object.features %>
+              <% if @features_hash %>
+                <% @features_hash.each do |fh| %>
+                  <% ct = ct + 1  %>
+                  <%= render :partial => 'alternative/list_features', :locals => {:this_form => fh, :counter => ct}  %>
+                <% end %>
+              <% else %>
+                <%= "No features found" %>
+              <% end %>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

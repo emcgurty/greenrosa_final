@@ -1,0 +1,217 @@
+<%= form_for(:user, :url => {:action => 'user_record'}) do |nf| %>   
+ <%= render :partial => 'alternative/check_for_errors', :locals => {:data_source => @user}  %>
+
+  <table width="940px" >
+
+    <tr >
+      <td style="width:5%"></td>
+      <td colspan=3 class="RosaTitle" >Green Rosa Collaborator Registration</td>
+      <td style="width:15%"></td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+      <td style="width:10%" ></td>
+    </tr>
+
+    <tr >
+      <td style="width:5%">&nbsp;</td>
+      <td style="width:15%" class=labelred></td>
+      <td style="width:15%"> </td>
+      <td style="width:15%"> </td>
+      <td style="width:10%"> </td>
+      <td style="width:10%"> </td>
+      <td style="width:10%"> </td>
+      <td style="width:10%"> </td>
+    </tr>
+    <tr >
+      <td style="width:5%"></td>
+      <td colspan="6" class=labelred>All fields are required, except for user name middle initial.</td>
+      <td style="width:10%"> </td>
+    </tr>
+
+    <tr >
+      <td style="width:5%"></td>
+      <td colspan="6" class=labelred>(x) indicates minimum...maximum required  characters.</td>
+      <td style="width:10%"> </td>
+    </tr>
+
+    <tr >
+      <td style="width:5%">&nbsp;</td>
+      <td style="width:15%" class=labelred></td>
+      <td style="width:15%"> </td>
+      <td style="width:15%"> </td>
+      <td style="width:10%"> </td>
+      <td style="width:10%"> </td>
+      <td style="width:10%"> </td>
+      <td style="width:10%"> </td>
+    </tr>
+    <tr >
+      <td style="width:5%"></td>
+      <td style="width:15%" >User name: (6...16)</td>
+      <td colspan=2 >&nbsp;</td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+    </tr>
+
+
+    <tr >
+      <td style="width:5%"></td>
+      <td style="width:15%" ><%= nf.text_field(:username, :maxlength=>"16",  :size=>"16") %></td>
+      <td colspan=2>&nbsp;</td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+    </tr>
+
+
+    <tr >
+      <td style="width:5%"></td>
+      <td style="width:15%"></td>
+      <td style="width:15%"></td>
+      <td style="width:15%"></td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+    </tr>
+
+
+    <tr >
+      <td style="width:5%"></td>
+      <td style="width:15%" >Password: (6...16)</td>
+      <td colspan=2 >Re-enter password</td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+    </tr>
+
+
+    <tr >
+      <td style="width:5%"></td>
+      <td style="width:15%" ><%= nf.password_field(:password,:maxlength=>"16",  :size=>"16") %></td>
+      <td colspan=2> <%= nf.password_field(:password_confirmation, :maxlength=>"16",  :size=>"16") %></td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+    </tr>
+
+    <tr >
+      <td style="width:5%"></td>
+      <td colspan=4 >
+        <table >
+          <tr>
+            <th width="40%" align="left"  >First Name (24)</th>
+            <th width="20%" align="left" >MI (1)</th>
+            <th width="40%" align="left" >Last Name (24)</th>
+          </tr>
+          <tr>
+            <td width="40%" align="left" ><%= nf.text_field :first_name , :maxlength=>"24",  :size=>"24" %> </td>
+            <td width="20%" align="left" ><%= nf.text_field :mi , :maxlength=>"1", :size=>"1" %> </td>
+            <td width="40%" align="left" ><%= nf.text_field :last_name , :maxlength=>"24", :size=>"24" %> </td>
+          </tr>
+        </table>
+      </td>
+      <td style="width:10%"></td>
+
+    </tr>
+
+
+
+
+    <tr >
+      <td style="width:5%">&nbsp; </td>
+      <td colspan="4" class=displayname >
+        <% @get_check_value = @user.display_name == 1 ? true : false %>
+        Display Name? <%= nf.check_box(:display_name, { :checked => @get_check_value } ) %> (Check if you want your full name to be displayed, otherwise Your Alias will be displayed)</td>
+
+      <td style="width:10%" ></td>
+      <td style="width:10%"></td>
+      <td style="width:10%" ></td>
+    </tr>
+
+    <tr >
+      <td style="width:5%"> &nbsp;</td>
+      <td style="width:15%"> </td>
+      <td style="width:15%"> </td>
+      <td style="width:15%"> </td>
+      <td style="width:10%" ></td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+      <td style="width:10%" ></td>
+    </tr>
+
+    <tr>
+
+      <td style="width:5%">&nbsp; </td>
+      <td style="width:15%" >Your Alias (6...16): <%= nf.text_field :user_alias , :maxlength=>"24", :size=> "24" %>  </td>
+      <td style="width:10%" >&nbsp</td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+      <td style="width:10%" ></td>
+    </tr>
+
+    <tr >
+      <td style="width:5%"> </td>
+      <td colspan=2 >email address (50):</td>
+      <td style="width:15%"> </td>
+      <td style="width:10%" ></td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+      <td style="width:10%" ></td>
+    </tr>
+
+
+    <tr >
+      <td style="width:5%"> </td>
+      <td colspan=2 ><%= nf.text_field(:email,:maxlength=>"50", :size=>"50") %> </td>
+      <td style="width:15%"> </td>
+      <td style="width:10%" ></td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+      <td style="width:10%" ></td>
+    </tr>
+    <tr >
+      <td style="width:5%"> &nbsp;</td>
+      <td style="width:15%"> </td>
+      <td style="width:15%"> </td>
+      <td style="width:15%"> </td>
+      <td style="width:10%" ></td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+      <td style="width:10%" ></td>
+    </tr>
+
+    <tr >
+      <td style="width:5%" ></td>
+      <td style="width:15%" align=left><%= submit_tag session[:user_commit], { :class => "button_style"} %></td>
+      <td colspan=2 align=left><%= link_to "Changed My Mind", root_url, {:class=> "button_style"} %></td>
+      <td style="width:15%">&nbsp; </td>
+      <td style="width:15%">&nbsp;</td>
+      <td style="width:10%">&nbsp;</td>
+      <td style="width:10%" >&nbsp;</td>
+      <td style="width:10%" ><%=  nf.hidden_field :remote_ip, :value => request.remote_ip %>
+
+        <% begin %>
+          <%=  nf.hidden_field :user_id %>
+        <% rescue %>
+        <% end %>
+      </td>
+    </tr>
+    <tr >
+      <td style="width:5%"> </td>
+      <td style="width:15%"> </td>
+      <td style="width:15%"> </td>
+      <td style="width:15%"> </td>
+      <td style="width:10%" ></td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+      <td style="width:10%" ></td>
+    </tr>
+
+  </table>
+
+<% end %>

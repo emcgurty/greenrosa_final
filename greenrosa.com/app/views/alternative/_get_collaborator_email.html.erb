@@ -1,0 +1,13 @@
+<% @get_user_info = User.find(:first, :readonly => true, :conditions => ['user_id = ?', user_id]) %>
+<%  if @get_user_info  %>
+  <%   if @get_user_info.display_name == 0 %>
+    <%=    get_full_name(@get_user_info) %>
+  <%   else %>
+    <%=    @get_user_info.user_alias  %>
+  <%   end %>
+  ' at '
+  <%=  mail_to(@get_user_info.email) %>
+
+<%  else  %>
+  ' Collaborator email not found'
+<%  end %>

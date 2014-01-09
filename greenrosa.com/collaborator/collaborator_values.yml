@@ -1,0 +1,64 @@
+:executable_files:
+- [ACTION, APK, APP, BAT, BIN, CMD, 	COM, COMMAND,
+CPL, CSH, 	EXE, GADGET, INF1,INS, 	INX, IPA,
+ISU, JOB, 	JSE, KSH, LNK, MSC, 	MSI, MSP,
+MST, OSX, 	OUT, PAF, PIF, PRG, 	PS1, REG,
+RGS, RUN, 	SCT, SHB, SHS, U3P, 	VB,	VBE,
+VBS, VBSCRIPT, WORKFLOW, WS, WSF ]
+
+:application_status:
+- ['1', 'Proposed']
+- ['2', 'Under Construction']
+- ['3', 'Available for review']
+- ['4', 'Deployed']
+- ['5', 'Bits and Pieces']
+
+:and_or:
+- ['1', 'Both name and feature']
+- ['2', 'Either name or feature']
+
+:us_states:
+- [AK, Alaska]
+- [WY, Wyoming]
+
+:countries:
+
+:collaborator:
+ :name: Green Rosa
+ :url: www.greenrosa.com
+ :address1: Your address
+ :city: Your city
+ :state: VA
+ :country: US
+ :postal_code: x01234
+ :email: 
+ :petition_message: 'Please place your petition message here'
+ :petition_subtitle: 'Please place your long petition title here  ......'
+ :petition_title_short: Short Petition Title
+ :about_us: 'Insert a paragraph here describing yourself.'
+
+
+:display_rows:
+  :number: '10'
+  :text: ten
+
+:display_links:
+  :number: '4'
+  
+:display_resources:
+  :number: '3'
+  :max: '12'
+
+:display_search_rows:
+  :number: '1'
+  :max: '4'
+
+:smtp:
+  :address: 'smtp.gmail.com'
+  :port: 587
+  :domain: 'gmail.com'
+  :authentication: :plain
+  :user_name: ''
+  :password: 
+
+:protect_from_forgery: ''

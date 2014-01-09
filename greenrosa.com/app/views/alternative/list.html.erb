@@ -1,0 +1,100 @@
+<p class="RosaTitle" >Green Rosa Contributions</p>
+
+<%= form_for(:alternative , :url => {:action => 'collaborate'}) do |form| %>
+  <% begin %>
+    <% bogus = @alternative[0].user_id %>
+  <% rescue %>
+    <% @alternative = @alternative[0] %>
+  <% end %>
+
+  <% if @alternative.count == 1 %>
+    <% unless @alternative[0].blank? %>
+      <%= render :partial => 'get_collaborator_identity_and_email', :locals => {:user_id => @alternative[0].user_id} %>
+    <% end %>
+  <% end %>
+
+  <div style="text-align:center;width:940px; ">
+
+    <% unless @alternative.count > 0 %>
+      <%   session[:search_rows] = nil %>
+      <%= "No records found, please try another search" %>
+    <%  else %>
+      <table style="text-align:center;width:940px;padding:0;border-spacing:0;" >
+        <tr  align="center">
+          <th style='width:20%'   >Application Name</th>
+          <th style='width:25%'   >Description</th>
+          <th style="width:15%"   >Status</th>
+          <th style="width:10%"   >Details</th>
+          <th style="width:20%"   >Collaborator</th>
+          <th style="width:10%"   >Functions</th>
+        </tr>
+      </table>
+      <% rct = 1 %>
+      <% @alternative.each do |template| %>
+        <div style="text-align:center;border-style:solid;border-color:lightgray;width:940px;">
+          <% @div_name = template.application_name + "_div"  %>
+          <% rct = rct + 1 %>
+          <table  style="text-align:center;width:940px;padding:0;border-spacing: 0;" >
+
+            <% if rct % 2 == 0 %>
+              <% @bg = "#BCD5B4" %>
+            <% elsif rct % 2 != 0 %>
+              <% @bg = "#F3E8D3" %>
+            <% end %>
+            <tr style="background-color:<%= @bg %>;text-align:left;">
+              <td style="width:20%;"  ><%= template.application_name %>&nbsp;</td>
+              <td style="width:25%;" ><%= template.application_description %>&nbsp;</td>
+              <td style="width:15%;"   ><%= get_application_status(template.application_status.to_s) %>&nbsp;</td>
+              <td style="width:10%;"    ><%= link_to_function "Details", "displayComments('#{@div_name}')" %>&nbsp; </td>
+              <td style="width:20%;"    ><%= render :partial => 'get_collaborator_email',  :locals => {:user_id => template.user_id } %>&nbsp; </td>
+              <td style="width:10%;"    ><%= render :partial => 'show_functions', :locals => {:uid => template.user_id, :rid => template.id } %>&nbsp;</td>
+            </tr>
+
+
+          </table>
+
+          <div id='<%= @div_name %>' style="display:none;" >
+            <table style="text-align:center;width:940px;padding:0;border-spacing: 0;">
+              <tr style="text-align:center;background-color:#B1E1DA;">
+                <th style="width:15%" align="left"  >Ruby Version</th>
+                <th style="width:15%" align="left"  >Rails Version</th>
+                <th style="width:15%" align="left"  >Development IDE</th>
+                <th style="width:20%" align="left"  >Code Source</th>
+                <th style="width:30%" align="left"  >Features</th>
+              </tr>
+
+              <tr>
+                <td style="width:15%"    ><%= template.ruby_version %></td>
+                <td style="width:15%"    ><%= template.rails_version %></td>
+                <td style="width:15%"   ><%= template.application_ide %></td>
+
+                <% if template.file_name == 'NA' %>
+                  <td style="width:20%"    ><%= link_to(template.source_url, template.source_url) %> </td>
+                <% else %>
+                  <% @link_to_msg = "#{template.source_url}, size #{template.file_size} KB" %>
+                  <% session[:id] = template.id %>
+                  <td style="width:20%"    ><%= link_to(@link_to_msg, :controller => "alternative", :action => "download",  :target => "_blank", :name => template.file_name ) %> </td>
+                <% end %>
+
+                <td style="width:30%" >
+                  <table style="text-align:center;width:100%;padding:0;border-spacing: 0;">
+                    <tr>
+
+                      <th style="width:15%" align="left" >No.</th>
+                      <th style="width:80%" align="left">Features</th>
+                    </tr>
+                    <% ct = 1 %>
+                    <%  template.features.each do |fh| %>
+                      <%= render :partial => 'alternative/list_features', :locals => {:this_form => fh, :counter => ct}  %>
+                      <% ct = ct + 1  %>
+                    <% end %>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

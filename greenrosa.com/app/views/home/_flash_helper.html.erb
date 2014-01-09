@@ -1,0 +1,12 @@
+<% unless flash.empty?  %>
+
+  <div id='notice'>
+    <% flash.each do |key, value| %>
+
+      <p class='RosaDescription' ><%= value %></p>
+
+    <% end %>
+  </div>
+
+<% end %>
+

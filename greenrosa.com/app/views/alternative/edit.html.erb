@@ -1,0 +1,183 @@
+<script language="javascript" type="text/javascript">
+  function source_url(which) {
+    var file_field = document.getElementById("rosa_uploaded_zip_file");
+    var text_field = document.getElementById("rosa_repository");
+    var clear_source_file_field_value = document.getElementById("rosa_url");
+
+    if (which == "rosa_uploaded_zip_file")  {
+      if (text_field.value) {
+        if (file_field.value) {
+          alert("You have already made a repository selection.");
+
+        }
+      }
+    } else if (which == "rosa_repository") {
+      if (file_field.value) {
+        if (text_field.value) {
+          alert("You have already made a source file selection.");
+          clear_source_file_field_value.style.display = 'inline';
+        }
+      }
+    }
+  }
+
+  function clear_file_field() {
+    var file_field = document.getElementById("rosa_uploaded_zip_file");
+    file_field.value = '';
+  }
+
+</script>
+
+<%= form_for(:alternative, :url => {:action => 'edit'}, :html => {:multipart => true, :method => 'post'}) do |form| %>
+
+
+  <% if @alternative.instance_of?(Rosa) %>
+    <% @tmp_array = Array.new %>
+    <% @tmp_array << @alternative %>
+    <% @alternative = @tmp_array %>
+    <% @tmp_array = nil %>
+  <% end %>
+
+  <% if session[:hold_save_result] %>
+    <% unless session[:hold_save_result].blank? %>
+      <% session[:hold_save_result].each do |error_check| %>
+        <%= render :partial => 'check_for_errors', :locals => {:data_source => error_check}  %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <% if session[:collaborate]  %>
+    <%= render :partial => 'alternative/collaborate_read_only' %>
+  <% else %>
+    <% unless @alternative[0].user_id.blank?  %>
+      <%= render :partial => 'alternative/get_collaborator_identity_and_email', :locals => {:user_id => @alternative[0].user_id} %>
+    <% else %>
+      <%= render :partial => 'alternative/get_collaborator_identity_and_email', :locals => {:user_id => session[:user_id]} %>
+    <% end %>
+  <% end %>
+
+  <%=  form.hidden_field :remote_ip, :value => request.remote_ip %>
+  <% begin %>
+    <%=  form.hidden_field :id %>
+  <% rescue %>
+  <% end %>
+
+  <% begin %>
+    <%=  form.hidden_field :user_id %>
+  <% rescue %>
+  <% end %>
+  <div style="text-align:center;width:100%;margin:2px">
+    <h3 class="RosaTitle">&nbsp;&nbsp; Green Rosa Contribution</h3>
+    <table style="width:940px" cellpadding="0" cellspacing="0" >
+      <tr style="background-color:#F2DFBB" valign="top">
+        <td style="width:1%"  >&nbsp;</td>
+        <td style="width:15%"   >Application Name:</td>
+        <td style="width:30%"  ><%= form.text_field(:application_name, :value => @alternative[0].application_name, :size => "50",:maxlength => "50" ) %></td>
+        <td style="width:1%"   >&nbsp;</td>
+        <td style="width:15%" align="left"  >Description:</td>
+        <td style="width:30%"  align="left" ><%= form.text_area(:application_description, :value => @alternative[0].application_description, :cols => "30", :rows => "8") %> </td>
+
+      </tr>
+
+      <tr style="background-color:#BCD5B4" align="left" valign="top">
+        <td style="width:1%" align="left"  >&nbsp;</td>
+        <td style="width:15%" align="left"  >Code Source:</td>
+        <td style="width:30%;background-color:lightgray;">
+          Source File(500 kb max, non-executable): <%= form.file_field("uploaded_zip_file", {:onChange => "source_url('rosa_uploaded_zip_file');"})  %>
+
+          <div class="fieldWithRosaUrl" id="rosa_url"  name="rosa_url" style="display:table">
+            <input type="button" id="clear" onClick="clear_file_field();" value="Clear Source File Selection" class="button_style_safe"/>
+            <br />
+          </div>
+
+          <% unless session[:upload_file].blank? %>
+            <div class="fieldWithErrors_Rosa">Previously selected: <%= session[:upload_file] %></div>
+          <% end %>
+          <br />
+          OR: <br />
+          <%= link_to "GitHub", "http://www.github.com" %> repository or comparable URL: <%= form.text_field(:repository, {:value => session[:source_url], :onChange => "source_url('rosa_repository');"})  %>
+
+        </td>
+
+        <td style="width:1%" align="left"  >&nbsp;</td>
+        <td style="width:15%" align="left"  >Status:</td>
+        <td style="width:30%"  align="left" ><%= render :partial => 'generate_combo', :locals => {:name => :application_status, :selected => @alternative[0].application_status.to_s} %></td>
+
+      </tr>
+
+      <tr style="background-color:#F2DFBB; vertical-align:top;">
+        <td style="width:1%" align="left"  >&nbsp;</td>
+        <td style="width:15%" align="left"  >Ruby Version:</td>
+        <td style="width:30%"  align="left" ><%= form.text_field(:ruby_version, :value => @alternative[0].ruby_version, :size => "50",:maxlength => "50" ) %></td>
+
+
+        <td style="width:1%" align="left"  >&nbsp;</td>
+        <td style="width:15%" align="left"  >Rails Version:</td>
+        <td style="width:30%"  align="left" ><%= form.text_field(:rails_version, :value => @alternative[0].rails_version, :size => "50",:maxlength => "50" ) %></td>
+
+      </tr>
+
+      <tr style="background-color:#BCD5B4; vertical-align:top;">
+        <td style="width:1%" align="left"  >&nbsp;</td>
+        <td style="width:15%" align="left"  >Development IDE:</td>
+        <td style="width:30%"  align="left" ><%= form.text_field(:application_ide, :value => @alternative[0].application_ide, :size => "50",:maxlength => "50" ) %></td>
+        <td style="width:1%" align="left"  >&nbsp;</td>
+        <td style="width:15%"  align="left" >&nbsp;</td>
+        <td style="width:30%" align="left" >
+          <div class="add_new_row">
+            <table class="ListFeatures" id="add_new_row">
+              <tr>
+                <th align="left" style="width:1%"  >No.</th>
+                <th align="left" style="width:30%"  >Feature</th>
+                <th align="left" style="width:5%" >Disregard?</th>
+              </tr>
+              <% ct = 1 %>
+
+              <% @alternative[0].features.each do |feature| %>
+                <tr class="add_new_record" id="add_new_record" >
+                  <td align="left" style="width:1%" ><%=  "#{ct}."  %> </td>
+                  <td align="left" style="width:30%" ><%=  text_field_tag("rt_#{ct}",feature.record_text ) %> </td>
+                  <% #check_box_tag(name, value = "1", checked = false, options = {}) public %>
+                  <% @cbo_value = feature.destroy_feature ? "1" : "0"  %>
+                  <td align="left" style="width:5%" ><%= check_box_tag("deo_#{ct}", @cbo_value, feature.destroy_feature ) %></td>
+                </tr>
+                <% ct = ct + 1 %>
+              <% end %>
+
+
+              <tr class="add_new_record" id="add_new_record" >
+                <td align="left" style="width:1%">&nbsp; </td>
+                <% if session[:feature_rows].to_i == CollaboratorMethods.collaborator_value[:display_resources][:max].to_i  %>
+                  <td style="width:30%"  align="left" ><%=  'Feature limit meet'  %> </td>
+                <% else %>
+                  <td style="width:30%"  align="left" ><%=  form.submit  "Add Another Feature", {:class => "button_style_safe"}   %> </td>
+                <% end %>
+                <td align="left" style="width:5%" >&nbsp</td>
+              </tr>
+
+
+            </table>
+
+          </div>
+        </td>
+      </tr>
+
+      <tr bgcolor="#F2DFBB" align="center" valign="top">
+        <td style="width:1%"   >&nbsp;</td>
+        <td style="width:15%" >&nbsp;</td>
+        <td colspan="3" align="center" ><%=  form.submit  "Submit for Edit Approval", {:class => "button_style"}   %>&nbsp;&nbsp;
+          <%=  form.submit  "Clear Entries", {:class => "button_style"}   %>&nbsp;&nbsp;
+          <%=  form.submit  "Changed My Mind", {:class => "button_style"}   %></td>
+
+        <td style="width:30%"  ></td>
+      </tr>
+
+
+
+    </table>
+
+
+
+  </div>
+<% end %>
+

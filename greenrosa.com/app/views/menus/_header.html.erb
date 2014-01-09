@@ -1,0 +1,33 @@
+<div class="my_header_title">
+<div class="left_side_content">
+  <% #Image credit: http://flowerpics.net/roses/green-rose.html %>
+  <%= link_to image_tag('green_rose.jpg',  :size => "118x118", :alt => "Image credit: http://flowerpics.net/roses/green-rose.html"),
+    :controller => 'home', :action => 'home' %>
+</div>
+
+<div class="center_content">
+  <% unless session[:subtitle] %>
+    <p align="center" vertical-align="middle"><font class="title">Green Rosa
+      </font></p>
+    <p align="center" vertical-align="middle"><font class="subtitle">Your resource for fully-functional generic Ruby on Rails open source applications</font></p>
+  <% else %>
+    <p align="center" ><font class="title">Green Rosa</font><br/><br/><font class="subtitle">Providing and building open source applications in collaboration</font></p>
+    <br/><br/>
+
+  <% end %>
+
+</div>
+
+
+<div class="login_right_side_content">
+  <%= render :partial => 'menus/login_menu_options'  %>
+</div>
+
+<div class="rosa_right_side_content">
+  <%= render :partial => 'menus/rosa_menu_options'  %>
+</div>
+
+</div>
+
+
+

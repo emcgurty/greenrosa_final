@@ -1,0 +1,80 @@
+<%= form_for(:user, :url => {:action => 'show'}) do |nf| %>
+
+  <table class="ListComments" style="width:100%">
+    <tr  >
+      <td style="width:5%">&nbsp; </td>
+      <td style="width:10%" ></td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+      <td style="width:10%" ></td>
+    </tr>
+
+    <tr  >
+      <td style="width:5%"></td>
+      <td style="width:10%" class="RosaTitle">Collaborator Login</td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+      <td style="width:10%" ></td>
+    </tr>
+    <tr  >
+      <td style="width:5%">&nbsp; </td>
+      <td style="width:10%" ></td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+      <td style="width:10%" ></td>
+    </tr>
+
+    <tr  >
+      <td style="width:5%"></td>
+      <td style="width:10%" class=labelgreen>User name:</td>
+      <td style="width:10%"  class=labelgreen>User Password:</td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+    </tr>
+    <tr  >
+      <td style="width:5%"></td>
+      <td style="width:10%" ><%=  nf.text_field(:username) %></td>
+      <td style="width:10%"><%=  nf.password_field(:password) %></td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+    </tr>
+    <tr  >
+      <td style="width:5%">&nbsp;</td>
+      <td style="width:10%">&nbsp;</td>
+      <td style="width:10%">&nbsp;</td>
+      <td style="width:10%">&nbsp;</td>
+      <td style="width:10%">&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td style="width:5%">&nbsp;</td>
+      <td style="width:10%" align=left><%= submit_tag  "Login", { :class=>"button_style" } %></td>
+      <td colspan=2 align=left><%= link_to  "Changed My Mind", root_url, {:class=>"button_style"} %></td>
+      <td style="width:10%" >&nbsp;</td>
+      <td style="width:10%" >&nbsp;</td>
+    </tr>
+    <tr  >
+      <td style="width:5%">&nbsp; </td>
+      <td style="width:10%" ></td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+      <td style="width:10%" ></td>
+    </tr>
+    <tr  >
+      <td style="width:5%"></td>
+      <td style="width:10%" ><%=  link_to "Forgot my user name", user_forgot_username_url, { :class=>'button_style_safe' } %></td>
+      <td colspan=2><%=  link_to "Forgot my password", user_forgot_password_url, { :class=>'button_style_safe' } %></td>
+      <td style="width:10%"></td>
+      <td style="width:10%"></td>
+
+    </tr>
+    <tr  >
+      <td style="width:5%">&nbsp;</td>
+      <td style="width:10%">&nbsp;</td>
+      <td style="width:10%">&nbsp;</td>
+      <td style="width:10%">&nbsp;</td>
+      <td style="width:10%">&nbsp;</td>
+    </tr>
+  </table>
+
+<% end %>
