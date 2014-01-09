@@ -18,8 +18,8 @@ development:
   adapter: mysql
   encoding: utf8
   database: green_rosa
-  username: root
-  password: emm8429731
+  username: 
+  password: 
   host: localhost
 
 # Warning: The database defined as "test" will be erased and
@@ -29,13 +29,13 @@ development:
 #  adapter: mysql
 #  encoding: utf8
 #  database: codemill_test
-#  username: root
-#  password: emm8429731
+#  username: 
+#  password: 
 #  host: localhost
 #
 production:
  adapter: mysql2
  database: green_rosa
- username: green_rosa
- password: db_cbov!biqYTCgJHGTES!12
+ username: 
+ password: 
  host: mysql.data.greenrosa.com
